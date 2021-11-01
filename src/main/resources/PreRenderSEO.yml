@@ -1,0 +1,89 @@
+name: "dotCMS prerender App"
+description: "...."
+iconUrl: "https://avatars3.githubusercontent.com/u/1005263?s=400&u=dd87be9aba0f44feb1b82cab52a5b7fffe5119e3&v=4"
+allowExtraParameters: false
+params:
+  preRenderEventHandler:
+    label: "preRenderEventHandler"
+    value: ""
+    hidden: false
+    type: "STRING"
+    hint: "PreRenderEventHandler class name"
+    required: true
+  proxy:
+    label: "proxy"
+    value: ""
+    hidden: false
+    type: "STRING"
+    hint: "proxy"
+    required: true
+  proxyPort:
+    label: "proxyPort"
+    value: ""
+    hidden: false
+    type: "STRING"
+    hint: "proxy port"
+    required: true
+  socketTimeout:
+    label: "socketTimeout"
+    value: ""
+    hidden: false
+    type: "STRING"
+    hint: "socket timeout"
+    required: true
+  prerenderToken:
+    label: "prerenderToken"
+    value: ""
+    hidden: false
+    type: "STRING"
+    hint: "Prerender Token"
+    required: true
+  forwardedURLHeader:
+    label: "forwardedURLHeader"
+    value: ""
+    hidden: false
+    type: "STRING"
+    hint: "Forwarded URL Header"
+    required: true
+  protocol:
+    label: "protocol"
+    value: ""
+    hidden: false
+    type: "STRING"
+    hint: "protocol"
+    required: true
+  blacklist:
+    label: "blacklist"
+    value: ""
+    hidden: false
+    type: "STRING"
+    hint: "blacklist"
+    required: true
+  whilelist:
+    label: "whilelist"
+    value: ""
+    hidden: false
+    type: "STRING"
+    hint: "whilelist"
+    required: true
+  crawlerUserAgents:
+    label: "Crawler User Agents"
+    value: ""
+    hidden: false
+    type: "STRING"
+    hint: "Crawler User Agents"
+    required: true
+  extensionToIgnore:
+    label: "Extension To Ignore"
+    value: ""
+    hidden: false
+    type: "STRING"
+    hint: "Extension To Ignore"
+    required: true
+  preRenderServiceUrl:
+    label: "Pre Render Service Url"
+    value: ""
+    hidden: false
+    type: "STRING"
+    hint: "Pre Render Service Url"
+    required: true
