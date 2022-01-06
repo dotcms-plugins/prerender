@@ -1,35 +1,21 @@
 name: "dotCMS prerender App"
-description: "...."
-iconUrl: "https://avatars3.githubusercontent.com/u/1005263?s=400&u=dd87be9aba0f44feb1b82cab52a5b7fffe5119e3&v=4"
-allowExtraParameters: false
+description: "SEO prerender JS"
+iconUrl: "https://static.dotcms.com/assets/icons/apps/prerender.png"
+allowExtraParameters: true
 params:
-  preRenderEventHandler:
-    label: "preRenderEventHandler"
+  Name:
+    label: "Name"
     value: ""
     hidden: false
     type: "STRING"
-    hint: "PreRenderEventHandler class name"
+    hint: "Give a name"
     required: true
-  proxy:
-    label: "proxy"
-    value: ""
+  preRenderServiceUrl:
+    label: "Pre Render Service Url"
+    value: "http://service.prerender.io/"
     hidden: false
     type: "STRING"
-    hint: "proxy"
-    required: true
-  proxyPort:
-    label: "proxyPort"
-    value: ""
-    hidden: false
-    type: "STRING"
-    hint: "proxy port"
-    required: true
-  socketTimeout:
-    label: "socketTimeout"
-    value: ""
-    hidden: false
-    type: "STRING"
-    hint: "socket timeout"
+    hint: "Pre Render Service Url"
     required: true
   prerenderToken:
     label: "prerenderToken"
@@ -37,53 +23,75 @@ params:
     hidden: false
     type: "STRING"
     hint: "Prerender Token"
-    required: true
+    required: false
   forwardedURLHeader:
     label: "forwardedURLHeader"
     value: ""
     hidden: false
     type: "STRING"
     hint: "Forwarded URL Header"
-    required: true
+    required: false
   protocol:
     label: "protocol"
     value: ""
     hidden: false
     type: "STRING"
     hint: "protocol"
-    required: true
+    required: false
   blacklist:
     label: "blacklist"
     value: ""
     hidden: false
     type: "STRING"
     hint: "blacklist"
-    required: true
+    required: false
   whilelist:
     label: "whilelist"
     value: ""
     hidden: false
     type: "STRING"
     hint: "whilelist"
-    required: true
+    required: false
   crawlerUserAgents:
     label: "Crawler User Agents"
-    value: ""
+    value: "baiduspider,facebookexternalhit, twitterbot, rogerbot, linkedinbot, embedly, quora link preview, showyoubo, outbrain, pinterest, developers.google.com/+/web/snippet, slackbot, vkShare,W3C_Validator, redditbot, Applebot"
     hidden: false
     type: "STRING"
     hint: "Crawler User Agents"
-    required: true
+    required: false
   extensionToIgnore:
     label: "Extension To Ignore"
-    value: ""
+    value: ".js,.json,.css,.xml,.less,.png,.jpg,.jpeg,.gif,.pdf,.doc,.txt,.ico,.rss,.zip,.mp3,.rar,.exe,.wmv,.doc,.avi,.ppt,.mpg,.mpeg,.tif,.wav,.mov,.psd,.ai,.xls,.mp4,.m4a,.swf,.dat,.dmg,.iso,.flv,.m4v,.torrent,.woff,.ttf"
     hidden: false
     type: "STRING"
     hint: "Extension To Ignore"
-    required: true
-  preRenderServiceUrl:
-    label: "Pre Render Service Url"
+    required: false
+  preRenderEventHandler:
+    label: "preRenderEventHandler"
     value: ""
     hidden: false
     type: "STRING"
-    hint: "Pre Render Service Url"
-    required: true
+    hint: "PreRenderEventHandler class name"
+    required: false
+  proxy:
+    label: "proxy"
+    value: ""
+    hidden: false
+    type: "STRING"
+    hint: "proxy"
+    required: false
+  proxyPort:
+    label: "proxyPort"
+    value: ""
+    hidden: false
+    type: "STRING"
+    hint: "proxy port"
+    required: false
+  socketTimeout:
+    label: "socketTimeout"
+    value: ""
+    hidden: false
+    type: "STRING"
+    hint: "socket timeout"
+    required: false
+

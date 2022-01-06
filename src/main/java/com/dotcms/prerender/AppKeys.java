@@ -10,7 +10,7 @@ public enum AppKeys {
     EXTENSIONS_TO_IGNORE("extensionsToIgnore"),
     WHILE_LIST("whitelist"),
     BLACK_LIST("blacklist"),
-    PRE_RENDER_SERVICE_URL("prerenderServiceUrl"),
+    PRE_RENDER_SERVICE_URL("preRenderServiceUrl"),
     PROTOCOL("protocol");
 
 

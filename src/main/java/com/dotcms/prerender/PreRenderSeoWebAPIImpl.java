@@ -379,10 +379,7 @@ public class PreRenderSeoWebAPIImpl implements PreRenderSeoWebAPI {
 
     private String getApiUrl(final String url, final PrerenderConfig prerenderConfig) {
 
-        String prerenderServiceUrl = prerenderConfig.getPrerenderServiceUrl();
-        if (!prerenderServiceUrl.endsWith(StringPool.SLASH)) {
-            prerenderServiceUrl += StringPool.SLASH;
-        }
+        final String prerenderServiceUrl = prerenderConfig.getPrerenderServiceUrl();
         return prerenderServiceUrl + url;
     }
 
