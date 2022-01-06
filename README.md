@@ -1,5 +1,4 @@
 ## Prerender dotCMS Plugin 
----
 
 This installs a dotCMS App that controls a prerender java filter that prerenders a javascript-rendered page using an external service and returns the HTML to the search engine crawler for SEO.
 
