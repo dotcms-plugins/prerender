@@ -3,19 +3,12 @@ description: "SEO prerender JS"
 iconUrl: "https://static.dotcms.com/assets/icons/apps/prerender.png"
 allowExtraParameters: true
 params:
-  Name:
-    label: "Name"
-    value: ""
-    hidden: false
-    type: "STRING"
-    hint: "Give a name"
-    required: true
   preRenderServiceUrl:
-    label: "Pre Render Service Url"
+    label: "Prerender Service Url"
     value: "http://service.prerender.io/"
     hidden: false
     type: "STRING"
-    hint: "Pre Render Service Url"
+    hint: "Prerender Service Url"
     required: true
   prerenderToken:
     label: "prerenderToken"
@@ -33,7 +26,7 @@ params:
     required: false
   protocol:
     label: "protocol"
-    value: ""
+    value: "https"
     hidden: false
     type: "STRING"
     hint: "protocol"
@@ -57,7 +50,7 @@ params:
     value: "baiduspider,facebookexternalhit, twitterbot, rogerbot, linkedinbot, embedly, quora link preview, showyoubo, outbrain, pinterest, developers.google.com/+/web/snippet, slackbot, vkShare,W3C_Validator, redditbot, Applebot"
     hidden: false
     type: "STRING"
-    hint: "Crawler User Agents"
+    hint: "Crawler User Agents who should be send prerenderd pages"
     required: false
   extensionToIgnore:
     label: "Extension To Ignore"
@@ -71,7 +64,7 @@ params:
     value: ""
     hidden: false
     type: "STRING"
-    hint: "PreRenderEventHandler class name"
+    hint: "PreRenderEventHandler class name, not normally used"
     required: false
   proxy:
     label: "proxy"
