@@ -21,6 +21,7 @@ public class AppConfig implements Serializable {
     public final String extensionToIgnore;
     public final String whilelist;
     public final String preRenderServiceUrl;
+    public final int maxRequestNumber;
 
     private AppConfig(Builder builder) {
         this.preRenderEventHandler = builder.preRenderEventHandler;
@@ -35,6 +36,7 @@ public class AppConfig implements Serializable {
         this.extensionToIgnore = builder.extensionToIgnore;
         this.whilelist = builder.whilelist;
         this.preRenderServiceUrl = builder.preRenderServiceUrl;
+        this.maxRequestNumber = builder.maxRequestNumber;
     }
 
 
@@ -77,6 +79,7 @@ public class AppConfig implements Serializable {
         public String crawlerUserAgents;
         public String extensionToIgnore;
         public String preRenderServiceUrl;
+        private int maxRequestNumber = -1;
 
         private Builder() {}
 
@@ -159,6 +162,11 @@ public class AppConfig implements Serializable {
 
         public Builder preRenderServiceUrl(String preRenderServiceUrl) {
             this.preRenderServiceUrl = preRenderServiceUrl;
+            return this;
+        }
+
+        public Builder maxRequestNumber(final int maxRequestNumber) {
+            this.maxRequestNumber = maxRequestNumber;
             return this;
         }
     }

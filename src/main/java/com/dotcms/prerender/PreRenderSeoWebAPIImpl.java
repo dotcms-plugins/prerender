@@ -1,5 +1,6 @@
 package com.dotcms.prerender;
 
+import com.dotcms.concurrent.DotConcurrentFactory;
 import com.dotcms.security.apps.AppSecrets;
 import com.dotcms.security.apps.Secret;
 import com.dotcms.util.ConversionUtils;
@@ -45,6 +46,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Supplier;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
@@ -58,6 +60,7 @@ public class PreRenderSeoWebAPIImpl implements PreRenderSeoWebAPI {
     public static final String ESCAPED_FRAGMENT_KEY = "_escaped_fragment_";
     private Map<String, CloseableHttpClient> httpClientByHostMap = new ConcurrentHashMap<>();
     private final HeaderGroup hopByHopHeaders = new HeaderGroup();
+    private final Map<String, ConditionalSubmitter> conditionalSubmitterMap = new ConcurrentHashMap<>();
 
     public PreRenderSeoWebAPIImpl () {
 
@@ -129,15 +132,51 @@ public class PreRenderSeoWebAPIImpl implements PreRenderSeoWebAPI {
 
             final PrerenderConfig prerenderConfig = new PrerenderConfig(appConfig.get(), host);
 
-            if (shouldShowPrerenderedPage(request, prerenderConfig)) {
+            final Supplier<Boolean> onAvailableSupplier = () -> {
+
+                Logger.debug(this.getClass().getName(), ()->"Running prerender");
 
                 final PreRenderEventHandler preRenderEventHandler = getEventHandler(appConfig.get());
                 return beforeRender(request, response, preRenderEventHandler) ||
                         proxyPrerenderedPageResponse(request, response, preRenderEventHandler, prerenderConfig);
+            };
+
+            if (shouldShowPrerenderedPage(request, prerenderConfig)) {
+
+                if (appConfig.get().maxRequestNumber > 0) {
+
+                    final ConditionalSubmitter conditionalSubmitter =
+                            this.getConditionalSubmitter(host.getIdentifier(), appConfig.get().maxRequestNumber);
+
+                    return conditionalSubmitter.submit(onAvailableSupplier, () -> false);
+                } else {
+
+                    return onAvailableSupplier.get();
+                }
             }
         }
 
         return false;
+    }
+
+    private ConditionalSubmitter getConditionalSubmitter(final String hostId, final int maxRequestNumber) {
+
+
+        ConditionalSubmitter conditionalSubmitter =
+                this.conditionalSubmitterMap.computeIfAbsent(hostId,
+                        key -> new ConditionalSubmitterImpl(maxRequestNumber));
+
+        // check if the maxRequestNumber has changed, if so destroy the current one and rebuilt the Conditional
+        if (maxRequestNumber != conditionalSubmitter.slotsNumber()) {
+
+            Logger.info(this.getClass().getName(), ()->"The maxRequestNumber has changed to: " + maxRequestNumber +
+                    ", creating a new ConditionalSubmitter");
+            this.conditionalSubmitterMap.remove(hostId);
+            conditionalSubmitter = this.conditionalSubmitterMap.computeIfAbsent(hostId,
+                    key ->  new ConditionalSubmitterImpl(maxRequestNumber));
+        }
+
+        return conditionalSubmitter;
     }
 
     /**
@@ -182,6 +221,8 @@ public class PreRenderSeoWebAPIImpl implements PreRenderSeoWebAPI {
                 .get(AppKeys.WHILE_LIST.key).getString()).getOrElse(StringPool.BLANK);
         final String preRenderServiceUrl = Try.of(()->secrets
                 .get(AppKeys.PRE_RENDER_SERVICE_URL.key).getString()).getOrElse(StringPool.BLANK);
+        final String maxRequestNumber = Try.of(()->secrets
+                .get(AppKeys.MAX_REQUEST_NUMBER.key).getString()).getOrElse("10");
 
         final AppConfig config = AppConfig.builder()
                 .forwardedURLHeader(forwardedURLHeader)
@@ -195,6 +236,7 @@ public class PreRenderSeoWebAPIImpl implements PreRenderSeoWebAPI {
                 .proxyPort(proxyPort)
                 .extensionToIgnore(extensionToIgnore)
                 .preRenderServiceUrl(preRenderServiceUrl)
+                .maxRequestNumber(ConversionUtils.toInt(maxRequestNumber, 10))
                 .build();
 
         return Optional.ofNullable(config);

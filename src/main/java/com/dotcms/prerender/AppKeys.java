@@ -11,7 +11,8 @@ public enum AppKeys {
     WHILE_LIST("whitelist"),
     BLACK_LIST("blacklist"),
     PRE_RENDER_SERVICE_URL("preRenderServiceUrl"),
-    PROTOCOL("protocol");
+    PROTOCOL("protocol"),
+    MAX_REQUEST_NUMBER("protocol");
 
 
     final public String key;

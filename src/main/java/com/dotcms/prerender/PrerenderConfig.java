@@ -95,4 +95,9 @@ public class PrerenderConfig {
 
         return crawlerUserAgents;
     }
+
+    public int getMaxRequestNumber() {
+
+        return config.maxRequestNumber;
+    }
 }
