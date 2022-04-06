@@ -92,6 +92,6 @@ params:
     value: "10"
     hidden: false
     type: "STRING"
-    hint: "available slots to handle the mex bot requests, -1 if do not want any limit"
+    hint: "available slots to handle the max bot requests, -1 if do not want any limit"
     required: false
 
